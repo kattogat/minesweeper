@@ -1,0 +1,87 @@
+/* $font-8: 0.8rem;
+$font-16: 1.6rem; // standard for p
+$font-24: 2.4rem;
+$font-32: 3.2rem;
+$font-48: 4.8rem;
+$font-64: 6.4rem;
+$font-95: 9.5rem; */
+
+*, *:before, *:after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+* :focus {
+    outline: 0;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+html, .site, .content-area, .site-content {
+    min-height: 100%;
+    min-width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #FDFDFF;
+    color: #0f0f0f;
+    font-family: 'Lato', sans-serif;
+} 
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+.feild {
+    width: 45rem;
+    height: 24rem;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    background-color: #c0c0c0;
+    border: solid #808080;
+    border-width: 0 1px 1px 0;
+}
+
+.square::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #c0c0c0;
+    border: 2px outset #ececec;
+    font-size: .75rem;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.mine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mine_svg {
+    max-width: 1rem;
+    max-height: 1rem;
+    
+}
