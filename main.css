@@ -74,6 +74,17 @@ main {
     pointer-events: auto;
 }
 
+.blank-square {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #c0c0c0;
+    border: solid 1px #808080;
+}
+
+.blank-square::after {
+    display: none;
+}
+
 .mine {
     display: flex;
     justify-content: center;
