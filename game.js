@@ -57,12 +57,17 @@ function check (element) {
     if (feild.querySelectorAll(".blank-square").length < 1) {
         // First click, place mines
         for (let i = 0; i < mine_amount; i++) {
-            let placment = Math.floor(Math.random() * (square_amount - 1 + 1)) + 1;;
+            let placment = Math.floor(Math.random() * (square_amount - 1 + 1)) + 1;
+            // First square can't be a mine
+            while (placment == element.id) {
+                console.log(placment);
+                placment = Math.floor(Math.random() * (square_amount - 1 + 1)) + 1;
+            }
+
             if (mines[placment] === false) {
                 mines[placment] = true;
             }
         }
-
     }
     
     element.classList.remove("square");
