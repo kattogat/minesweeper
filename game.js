@@ -82,6 +82,19 @@ function check(element) {
         startTimer();
     }
 
+    // Are ya winning son?
+    if (element.getElementsByClassName('square').length == mine_amount) {
+        let mines_left = false;
+        for (let i = 0; i < element.getElementsByClassName('square').length; i++) {
+            if (mines[parseInt(element.getElementsByClassName('square').id)] === false) mines_left = true;
+        }
+
+        if (!mines_left) {
+            // We have winner!
+            emoji.innerHTML = "😎";
+        }
+    }
+
     element.classList.remove("square");
     element.classList.add("blank-square");
 
@@ -101,6 +114,8 @@ function check(element) {
         
         return;
     }
+
+    console.log('here');
 
     // Check suronding squares
     const surrounding_mines = checkSurondingSquares(element.id);
@@ -229,14 +244,30 @@ function closeBy(original_id) {
     original_id = parseInt(original_id);
     let surrounding = [];
 
-    if (document.getElementById(original_id + 1) !== null) surrounding.push(parseInt(document.getElementById(original_id + 1).id)); // forward
-    if (document.getElementById(original_id - 1) !== null) surrounding.push(parseInt(document.getElementById(original_id - 1).id)); // backward
-    if (document.getElementById(original_id + y_lenght) !== null) surrounding.push(parseInt(document.getElementById(original_id + y_lenght).id)); // top
-    if (document.getElementById((original_id + y_lenght) + 1) !== null) surrounding.push(parseInt(document.getElementById((original_id + y_lenght) + 1).id)); // top forward
-    if (document.getElementById((original_id + y_lenght) - 1) !== null) surrounding.push(parseInt(document.getElementById((original_id + y_lenght) - 1).id)); // top backward
-    if (document.getElementById(original_id - y_lenght) !== null) surrounding.push(parseInt(document.getElementById(original_id - y_lenght).id)); // bottom
-    if (document.getElementById((original_id - y_lenght) + 1) !== null) surrounding.push(parseInt(document.getElementById((original_id - y_lenght) + 1).id)); // bottom forward
-    if (document.getElementById((original_id - y_lenght) - 1) !== null) surrounding.push(parseInt(document.getElementById((original_id - y_lenght) - 1).id)); // bottom backward
+    if (document.getElementById(original_id + 1) !== null) { 
+        surrounding.push(parseInt(document.getElementById(original_id + 1).id)); // forward
+    }
+    if (document.getElementById(original_id - 1) !== null) { 
+        surrounding.push(parseInt(document.getElementById(original_id - 1).id)); // backward
+    }
+    if (document.getElementById(original_id + y_lenght) !== null) {
+        surrounding.push(parseInt(document.getElementById(original_id + y_lenght).id)); // top
+    }
+    if (document.getElementById((original_id + y_lenght) + 1) !== null) {
+        surrounding.push(parseInt(document.getElementById((original_id + y_lenght) + 1).id)); // top forward
+    }
+    if (document.getElementById((original_id + y_lenght) - 1) !== null) {
+        surrounding.push(parseInt(document.getElementById((original_id + y_lenght) - 1).id)); // top backward
+    }
+    if (document.getElementById(original_id - y_lenght) !== null) {
+        surrounding.push(parseInt(document.getElementById(original_id - y_lenght).id)); // bottom
+    }
+    if (document.getElementById((original_id - y_lenght) + 1) !== null) {
+        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) + 1).id)); // bottom forward
+    }
+    if (document.getElementById((original_id - y_lenght) - 1) !== null) {
+        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) - 1).id)); // bottom backward
+    }
 
     return surrounding;
 }
