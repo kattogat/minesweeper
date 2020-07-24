@@ -43,8 +43,33 @@ main {
     background-color: #b1b1b1;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.wrapper {
+    border: #838383 solid 0.2rem;
+}
+
+.interface {
+    width: 45rem;
+    height: 5rem;
+    background-color: #c0c0c0;
+    font-size: 1.6rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.emoji {
+    cursor: pointer;
+}
+
+.counter {
+    margin: 1rem;
 }
 
 .feild {
