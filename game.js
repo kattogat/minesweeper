@@ -75,6 +75,10 @@ function check (element) {
     // Did they hit a mine?
     if (mines[parseInt(element.id)] === true) {
         element.classList.add("mine");
+        let bomb = document.createElement("span");
+        bomb.classList.add("bomb");
+        bomb.innerHTML = "💣";
+        element.appendChild(bomb);
         return;
     }
 
