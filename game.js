@@ -186,20 +186,17 @@ function areYouScared() {
 
 function fearless() {
     if (emoji.innerHTML === "💀") return;
-    emoji.innerHTML = defaultEmoji();
+    emoji.innerHTML = getDefaultEmoji();
 }
 
 /**
  * Get the default emoji, it will change depending on how mnay flags are placed
  */
-function defaultEmoji() {
+function getDefaultEmoji() {
     const flags = document.getElementsByClassName('flag');
 
-    console.log(Math.ceil((mine_amount/8)+(mine_amount/4)));
-    console.log(Math.ceil((mine_amount/2)+(mine_amount/4)));
-
     if (emoji.innerHTML === "💀") return "💀";
-    if (flags.length > mine_amount || flags.length == 0) return "🤔";
+    if (flags.length >= mine_amount) return "🤔";
     if (flags.length >= Math.ceil(mine_amount-2)) return "🤩";
     if (flags.length > Math.ceil((mine_amount/2)+(mine_amount/3))) return "🥳";
     if (flags.length > Math.ceil((mine_amount/4)+(mine_amount/2))) return "😏";
