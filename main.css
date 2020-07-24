@@ -45,6 +45,7 @@ main {
 .feild {
     width: 45rem;
     height: 24rem;
+    background-color: #c0c0c0;
 
     display: flex;
     flex-wrap: wrap;
@@ -54,7 +55,6 @@ main {
     width: 1.5rem;
     height: 1.5rem;
     position: relative;
-    background-color: #c0c0c0;
     border: solid #808080;
     border-width: 0 1px 1px 0;
 }
@@ -77,8 +77,11 @@ main {
 .blank-square {
     width: 1.5rem;
     height: 1.5rem;
-    background-color: #c0c0c0;
     border: solid 1px #808080;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .blank-square::after {
@@ -89,6 +92,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: #e61919;
 }
 
 .mine_svg {
