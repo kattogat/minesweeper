@@ -88,6 +88,10 @@ main {
     border: solid #808080;
     border-width: 0 1px 1px 0;
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .square::after {
@@ -132,4 +136,12 @@ main {
     display: block;
     max-width: 100%;
     max-height: auto;    
+}
+
+.flag {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    max-width: 100%;
+    max-height: auto; 
 }

@@ -10,9 +10,9 @@ let y_lenght      = 0;
 let mine_amount   = 0;
 let timer         = '';
 
+// Create feild if empty
 if (!feild.hasChildNodes()) {
-    // Create feild if empty
-    createFeild(16, 30, 99);
+    createFeild(16, 30, 99); // FIXME: Don't use static numbers
 }
 
 /**
@@ -38,6 +38,13 @@ function createFeild(x, y, mine) {
         new_square.classList.add("square");
         new_square.id = count;
         new_square.addEventListener("click", function(){ check(this); });
+        new_square.addEventListener('contextmenu', function(event) { 
+            event.preventDefault();
+            rightClick(this); 
+            return false; 
+        }, false);
+        new_square.addEventListener("mousedown", areYouScared);
+        new_square.addEventListener("mouseup", fearless);
         feild.appendChild(new_square);
 
         count++;
@@ -55,6 +62,7 @@ function createFeild(x, y, mine) {
  */
 function check(element) {
     if (element.classList.contains('blank-square')) return;
+    if (element.getElementsByClassName('flag').length > 0) return;
 
     if (feild.querySelectorAll(".blank-square").length < 1) {
         // First click, place mines
@@ -150,6 +158,58 @@ function check(element) {
 }
 
 /**
+ * Place or remove a flag on right click
+ * @param {this} element 
+ */
+function rightClick(element) {
+    if (element.classList.contains('blank-square')) return;
+    if (element.getElementsByClassName('flag').length > 0) {
+        element.textContent = '';
+        document.getElementById('left').innerHTML++;
+    }
+    else {
+        let flag = document.createElement("span");
+        flag.classList.add("flag");
+        flag.innerHTML = "🚩";
+        element.appendChild(flag);
+
+        const flaged = document.getElementsByClassName('flag');
+        document.getElementById('left').innerHTML = mine_amount - flaged.length;
+    }
+    return false;
+}
+
+function areYouScared() {
+    if (emoji.innerHTML === "💀") return;
+    emoji.innerHTML = "😨";
+}
+
+function fearless() {
+    if (emoji.innerHTML === "💀") return;
+    emoji.innerHTML = defaultEmoji();
+}
+
+/**
+ * Get the default emoji, it will change depending on how mnay flags are placed
+ */
+function defaultEmoji() {
+    const flags = document.getElementsByClassName('flag');
+
+    console.log(Math.ceil((mine_amount/8)+(mine_amount/4)));
+    console.log(Math.ceil((mine_amount/2)+(mine_amount/4)));
+
+    if (emoji.innerHTML === "💀") return "💀";
+    if (flags.length > mine_amount || flags.length == 0) return "🤔";
+    if (flags.length >= Math.ceil(mine_amount-2)) return "🤩";
+    if (flags.length > Math.ceil((mine_amount/2)+(mine_amount/3))) return "🥳";
+    if (flags.length > Math.ceil((mine_amount/4)+(mine_amount/2))) return "😏";
+    if (flags.length > Math.ceil(mine_amount/2)) return "😁";
+    if (flags.length > Math.ceil(mine_amount/4)) return "😀";
+        
+    return "🙂";
+}
+
+/**
  * See what squares tuching the id has
  * @param {*} id 
  */
@@ -184,6 +244,9 @@ function closeBy(original_id) {
     return surrounding;
 }
 
+/**
+ * Start the timer
+ */
 function startTimer() {
     let sec = 0;
     function pad(val) { 
@@ -200,11 +263,17 @@ function startTimer() {
     }, 1000);
 }
 
+/**
+ * Restart the timer
+ */
 function resetTimer() {
     clearInterval(timer);
     document.getElementById("time").innerHTML = '000';
 }
 
+/**
+ * Reset and start a new game
+ */
 function reset() {
     emoji.innerHTML = "🙂";
     resetTimer();
