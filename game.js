@@ -115,8 +115,6 @@ function check(element) {
         return;
     }
 
-    console.log('here');
-
     // Check suronding squares
     const surrounding_mines = checkSurondingSquares(element.id);
     if (surrounding_mines > 0) {
@@ -124,52 +122,39 @@ function check(element) {
         element.innerHTML = surrounding_mines;
         return;
     }
-    // else {
-    //     let should_be_checked = closeBy(element.id);
-    //     while (should_be_checked.length > 1) {
-    //         let remove = [];
-    //         for (let i = 0; i < should_be_checked.length; i++) {
-    //             let is_blank = checkSurondingSquares(should_be_checked[i]);
-    //             if (is_blank < 1) {
-    //                 let blank_element = document.getElementById(should_be_checked[i]);
-    //                 blank_element.classList.remove("square");
-    //                 blank_element.classList.add("blank-square");
-    //                 switch (i) {
-    //                     case 0:
-    //                     case 3:
-    //                     case 6:
-    //                         should_be_checked[i] = should_be_checked[i]++;
-    //                         break;
-    //                     case 1:
-    //                     case 4:
-    //                     case 7:
-    //                         should_be_checked[i] = should_be_checked[i]--;
-    //                         break;
-    //                     case 2:
-    //                         should_be_checked[i] = should_be_checked[i] + y_lenght;
-    //                         break;
-    //                     case 5:
-    //                         should_be_checked[i] = should_be_checked[i] - y_lenght;
-    //                         break;
-                    
-    //                     default:
-    //                         break;
-    //                 }
-    //             }
-    //             else {
-    //                 remove.push(i);
-    //             }
-    //         }
+    else {
+        let should_be_checked = closeBy(element.id);
+        let checked    = [parseInt(element.id)];
+        let add_theses = [];
+        while (should_be_checked.length > 0) {
+            for (let i = 0; i < should_be_checked.length; i++) {
+                let is_blank = checkSurondingSquares(should_be_checked[i]);
+                if (is_blank < 1) {
+                    let blank_element = document.getElementById(should_be_checked[i]);
+                    blank_element.classList.remove("square");
+                    blank_element.classList.add("blank-square");
 
-    //         if (remove.length > 0) {
-    //             remove.forEach(index => {
-    //                 should_be_checked.splice(index, 1);
-    //             });
-    //         }
+                    // Don't add duplicets
+                    let should_we_add_these = closeBy(should_be_checked[i]);
+                    should_we_add_these.forEach(value => {
+                        if (add_theses.includes(value) == false && checked.includes(value) == false) {
+                            add_theses.push(value);
+                        }
+                    });
+                }
 
-    //         console.log(should_be_checked);
-    //     }
-    // }
+                if (checked.includes(should_be_checked[i]) == false) {
+                    checked.push(should_be_checked[i]);
+                }
+            }
+            should_be_checked = [];
+
+            if (add_theses.length > 0) {
+                should_be_checked = add_theses;
+            }
+            add_theses = [];
+        }
+    }
 }
 
 /**
