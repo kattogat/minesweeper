@@ -145,3 +145,28 @@ main {
     max-width: 100%;
     max-height: auto; 
 }
+
+.one {
+    color: #0200fd;
+}
+.two {
+    color: #017e00;
+}
+.three {
+    color: #fe0000;
+}
+.four {
+    color: #010180;
+}
+.five {
+    color: #810101;
+}
+.six {
+    color: #008080;
+}
+.seven {
+    color: #000000;
+}
+.eight {
+    color: #808080;
+}

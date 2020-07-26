@@ -119,6 +119,7 @@ function check(element) {
     const surrounding_mines = checkSurondingSquares(element.id);
     if (surrounding_mines > 0) {
         // They hit a number
+        element.classList.add(getNumberClass(surrounding_mines));
         element.innerHTML = surrounding_mines;
         return;
     }
@@ -146,7 +147,7 @@ function check(element) {
                     if (mines[parseInt(element.id)] !== true) {
                         let number = document.getElementById(should_be_checked[i]);
                         number.classList.remove("square");
-                        number.classList.add("blank-square");
+                        number.classList.add("blank-square", getNumberClass(is_blank));
                         number.innerHTML = is_blank;
                     }
                 }
@@ -212,6 +213,20 @@ function getDefaultEmoji() {
     if (flags.length > Math.ceil(mine_amount/4)) return "😀";
         
     return "🙂";
+}
+
+function getNumberClass(number) {
+    switch (number) {
+        case 1: return 'one';
+        case 2: return 'two';
+        case 3: return 'three';
+        case 4: return 'four';
+        case 5: return 'five';
+        case 6: return 'six';
+        case 7: return 'seven';
+        case 8: return 'eight';
+        default: return '';
+    }
 }
 
 /**
