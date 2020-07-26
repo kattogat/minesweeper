@@ -9,6 +9,7 @@ let x_lenght      = 0;
 let y_lenght      = 0;
 let mine_amount   = 0;
 let timer         = '';
+let y_border = [];
 
 // Create feild if empty
 if (!feild.hasChildNodes()) {
@@ -33,6 +34,7 @@ function createFeild(x, y, mine) {
     }
 
     let count = 1;
+    let border = y_lenght;
     for (let i = 0; i < amount; i++) {
         let new_square = document.createElement("div");
         new_square.classList.add("square");
@@ -46,6 +48,13 @@ function createFeild(x, y, mine) {
         new_square.addEventListener("mousedown", areYouScared);
         new_square.addEventListener("mouseup", fearless);
         feild.appendChild(new_square);
+
+        // Find the y border
+        if (count == border) {
+            y_border.push(count);
+            if (amount != count) y_border.push(count + 1);
+            border = border + y_lenght;
+        }
 
         count++;
     }
@@ -73,7 +82,7 @@ function check(element) {
                 placment = Math.floor(Math.random() * (square_amount - 1 + 1)) + 1;
             }
 
-            if (mines[placment] === false) {
+            if (!mines[placment]) {
                 mines[placment] = true;
             }
         }
@@ -86,7 +95,7 @@ function check(element) {
     if (element.getElementsByClassName('square').length == mine_amount) {
         let mines_left = false;
         for (let i = 0; i < element.getElementsByClassName('square').length; i++) {
-            if (mines[parseInt(element.getElementsByClassName('square').id)] === false) mines_left = true;
+            if (!mines[parseInt(element.getElementsByClassName('square').id)]) mines_left = true;
         }
 
         if (!mines_left) {
@@ -138,13 +147,13 @@ function check(element) {
                     // Don't add duplicets
                     let should_we_add_these = closeBy(should_be_checked[i]);
                     should_we_add_these.forEach(value => {
-                        if (add_theses.includes(value) == false && checked.includes(value) == false) {
+                        if (!add_theses.includes(value) && !checked.includes(value)) {
                             add_theses.push(value);
                         }
                     });
                 }
                 else {
-                    if (mines[parseInt(element.id)] !== true) {
+                    if (!mines[parseInt(element.id)]) {
                         let number = document.getElementById(should_be_checked[i]);
                         number.classList.remove("square");
                         number.classList.add("blank-square", getNumberClass(is_blank));
@@ -152,7 +161,7 @@ function check(element) {
                     }
                 }
 
-                if (checked.includes(should_be_checked[i]) == false) {
+                if (!checked.includes(should_be_checked[i])) {
                     checked.push(should_be_checked[i]);
                 }
             }
@@ -238,7 +247,7 @@ function checkSurondingSquares(id) {
     let surrounding_mines = 0;
 
     for (let i = 0; i < surrounding.length; i++) {
-        if (mines[surrounding[i]] === true) surrounding_mines++;
+        if (mines[surrounding[i]]) surrounding_mines++;
     }
 
     return surrounding_mines;
@@ -250,30 +259,31 @@ function checkSurondingSquares(id) {
  */
 function closeBy(original_id) {
     original_id = parseInt(original_id);
+    let is_border = y_border.includes(original_id);
     let surrounding = [];
 
-    if (document.getElementById(original_id + 1) !== null) { 
+    if (document.getElementById(original_id + 1) !== null && !y_border.includes(original_id + 1)) { 
         surrounding.push(parseInt(document.getElementById(original_id + 1).id)); // forward
     }
-    if (document.getElementById(original_id - 1) !== null) { 
+    if (document.getElementById(original_id - 1) !== null && !y_border.includes(original_id - 1)) { 
         surrounding.push(parseInt(document.getElementById(original_id - 1).id)); // backward
     }
     if (document.getElementById(original_id + y_lenght) !== null) {
         surrounding.push(parseInt(document.getElementById(original_id + y_lenght).id)); // top
     }
-    if (document.getElementById((original_id + y_lenght) + 1) !== null) {
+    if (document.getElementById((original_id + y_lenght) + 1) !== null && !y_border.includes((original_id + y_lenght) + 1)) {
         surrounding.push(parseInt(document.getElementById((original_id + y_lenght) + 1).id)); // top forward
     }
-    if (document.getElementById((original_id + y_lenght) - 1) !== null) {
+    if (document.getElementById((original_id + y_lenght) - 1) !== null && !y_border.includes((original_id + y_lenght) - 1)) {
         surrounding.push(parseInt(document.getElementById((original_id + y_lenght) - 1).id)); // top backward
     }
     if (document.getElementById(original_id - y_lenght) !== null) {
         surrounding.push(parseInt(document.getElementById(original_id - y_lenght).id)); // bottom
     }
-    if (document.getElementById((original_id - y_lenght) + 1) !== null) {
+    if (document.getElementById((original_id - y_lenght) + 1) !== null && !y_border.includes((original_id - y_lenght) + 1)) {
         surrounding.push(parseInt(document.getElementById((original_id - y_lenght) + 1).id)); // bottom forward
     }
-    if (document.getElementById((original_id - y_lenght) - 1) !== null) {
+    if (document.getElementById((original_id - y_lenght) - 1) !== null && !y_border.includes((original_id - y_lenght) - 1)) {
         surrounding.push(parseInt(document.getElementById((original_id - y_lenght) - 1).id)); // bottom backward
     }
 
