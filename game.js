@@ -142,6 +142,14 @@ function check(element) {
                         }
                     });
                 }
+                else {
+                    if (mines[parseInt(element.id)] !== true) {
+                        let number = document.getElementById(should_be_checked[i]);
+                        number.classList.remove("square");
+                        number.classList.add("blank-square");
+                        number.innerHTML = is_blank;
+                    }
+                }
 
                 if (checked.includes(should_be_checked[i]) == false) {
                     checked.push(should_be_checked[i]);
