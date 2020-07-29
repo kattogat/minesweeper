@@ -35,6 +35,7 @@ function createFeild(x, y, mine) {
 
     let count = 1;
     let border = y_lenght;
+    y_border.push(1);
     for (let i = 0; i < amount; i++) {
         let new_square = document.createElement("div");
         new_square.classList.add("square");
@@ -259,35 +260,45 @@ function checkSurondingSquares(id) {
  */
 function closeBy(original_id) {
     original_id = parseInt(original_id);
-    let is_border = y_border.includes(original_id);
     let surrounding = [];
 
-    if (document.getElementById(original_id + 1) !== null && !y_border.includes(original_id + 1)) { 
+    if (document.getElementById(original_id + 1) !== null && !isOverBorder(original_id, original_id + 1)) { 
         surrounding.push(parseInt(document.getElementById(original_id + 1).id)); // forward
     }
-    if (document.getElementById(original_id - 1) !== null && !y_border.includes(original_id - 1)) { 
-        surrounding.push(parseInt(document.getElementById(original_id - 1).id)); // backward
-    }
-    if (document.getElementById(original_id + y_lenght) !== null) {
-        surrounding.push(parseInt(document.getElementById(original_id + y_lenght).id)); // top
-    }
-    if (document.getElementById((original_id + y_lenght) + 1) !== null && !y_border.includes((original_id + y_lenght) + 1)) {
+    if (document.getElementById((original_id + y_lenght) + 1) !== null && !isOverBorder(original_id, (original_id + y_lenght) + 1)) {
         surrounding.push(parseInt(document.getElementById((original_id + y_lenght) + 1).id)); // top forward
     }
-    if (document.getElementById((original_id + y_lenght) - 1) !== null && !y_border.includes((original_id + y_lenght) - 1)) {
+    if (document.getElementById((original_id - y_lenght) + 1) !== null && !isOverBorder(original_id, (original_id - y_lenght) + 1)) {
+        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) + 1).id)); // bottom forward
+    }
+    if (document.getElementById(original_id - 1) !== null && !isOverBorder(original_id, original_id - 1)) { 
+        surrounding.push(parseInt(document.getElementById(original_id - 1).id)); // backward
+    }
+    if (document.getElementById((original_id + y_lenght) - 1) !== null && !isOverBorder(original_id, (original_id + y_lenght) - 1)) {
         surrounding.push(parseInt(document.getElementById((original_id + y_lenght) - 1).id)); // top backward
+    }
+    if (document.getElementById((original_id - y_lenght) - 1) !== null && !isOverBorder(original_id, (original_id - y_lenght) - 1)) {
+        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) - 1).id)); // bottom backward
+    }
+
+    if (document.getElementById(original_id + y_lenght) !== null) {
+        surrounding.push(parseInt(document.getElementById(original_id + y_lenght).id)); // top
     }
     if (document.getElementById(original_id - y_lenght) !== null) {
         surrounding.push(parseInt(document.getElementById(original_id - y_lenght).id)); // bottom
     }
-    if (document.getElementById((original_id - y_lenght) + 1) !== null && !y_border.includes((original_id - y_lenght) + 1)) {
-        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) + 1).id)); // bottom forward
-    }
-    if (document.getElementById((original_id - y_lenght) - 1) !== null && !y_border.includes((original_id - y_lenght) - 1)) {
-        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) - 1).id)); // bottom backward
-    }
 
     return surrounding;
+}
+
+/**
+ * Find out if the new id is over the border (Using flex wrap was a mistake)
+ * @param {int} id 
+ * @param {bool} plus 
+ */
+function isOverBorder(original_id, new_id) {
+    if (y_border.includes(new_id) && y_border.includes(original_id)) return true;
+    return false;
 }
 
 /**
@@ -322,6 +333,7 @@ function resetTimer() {
  */
 function reset() {
     emoji.innerHTML = "🙂";
+    y_border = [];
     resetTimer();
     createFeild(x_lenght, y_lenght, mine_amount);
 }
