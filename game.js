@@ -32,6 +32,7 @@ function createFeild(x, y, mine) {
     if (feild.hasChildNodes()) {
         // Clear feild
         feild.textContent = '';
+        mines = [];
     }
 
     // Set feild size
@@ -68,7 +69,8 @@ function createFeild(x, y, mine) {
     }
     square_amount = count;
 
-    for (let i = 0; i < square_amount; i++) {
+    mines[0] = false;
+    for (let i = 1; i < square_amount; i++) {
         mines[i] = false;
     }
 }
@@ -364,6 +366,8 @@ function resetTimer() {
  * Reset and start a new game
  */
 function reset() {
+    game_over = false;
+    mines = [];
     emoji.innerHTML = "🙂";
     y_border = [];
     resetTimer();
