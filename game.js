@@ -142,6 +142,7 @@ function check(element) {
         for (let i = 1; i < square_amount; i++) {
             const the_square = document.getElementById(i);
             if (!the_square.classList.contains('blank-square') && mines[i]) {
+                if (the_square.getElementsByClassName('flag').length > 0) the_square.textContent = '';
                 the_square.classList.remove("square");
                 the_square.classList.add("blank-square");
                 let next_bomb = document.createElement("span");
