@@ -56,8 +56,8 @@ button {
 }
 
 .difficulty > button {
-    width: 3rem;
-    font-size: 2rem;
+    width: 4rem;
+    font-size: 2.4rem;
     margin-bottom: 1rem;
     cursor: pointer;
 }
@@ -70,7 +70,7 @@ button {
     width: 45rem;
     height: 5rem;
     background-color: #c0c0c0;
-    font-size: 1.6rem;
+    font-size: 2rem;
 
     display: flex;
     flex-direction: row;
@@ -87,17 +87,18 @@ button {
 }
 
 .feild {
-    width: 45rem;
-    height: 24rem;
+    width: 60rem;
+    height: 32rem;
     background-color: #c0c0c0;
+    font-size: 1.6rem;
 
     display: flex;
     flex-wrap: wrap;
 }
 
 .square {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     position: relative;
     border: solid #808080;
     border-width: 0 1px 1px 0;
@@ -118,14 +119,14 @@ button {
     box-sizing: border-box;
     background: #c0c0c0;
     border: 2px outset #ececec;
-    font-size: .75rem;
+    font-size: 0.75rem;
     text-align: center;
     pointer-events: auto;
 }
 
 .blank-square {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     border: solid 1px #808080;
     cursor: default;
 
@@ -142,12 +143,13 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.4rem;
 }
 
 .bomb {
     display: block;
     max-width: 100%;
-    max-height: auto;    
+    max-height: auto; 
 }
 
 .flag {

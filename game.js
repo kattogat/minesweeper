@@ -2,7 +2,7 @@
 
 const feild       = document.getElementsByClassName('feild')[0];
 const emoji       = document.getElementsByClassName('emoji')[0];
-const square_size = 1.5; // rem
+const square_size = 2; // rem
 let square_amount = 0;
 let mines         = [];
 let x_lenght      = 0;
@@ -36,10 +36,10 @@ function createFeild(x, y, mine) {
     }
 
     // Set feild size
-    feild.style.height = 1.5 * x + 'rem';
-    feild.style.width = 1.5 * y + 'rem';
+    feild.style.height = square_size * x + 'rem';
+    feild.style.width = square_size * y + 'rem';
     const interface = document.getElementsByClassName('interface')[0];
-    interface.style.width = 1.5 * y + 'rem';
+    interface.style.width = square_size * y + 'rem';
 
     let count = 1;
     let border = y_lenght;
