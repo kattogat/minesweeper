@@ -14,7 +14,7 @@ let game_over     = false
 
 // Create feild if empty
 if (!feild.hasChildNodes()) {
-    createFeild(16, 30, 99); // FIXME: Don't use static numbers
+    createFeild(16, 30, 99);
 }
 
 /**
@@ -33,6 +33,12 @@ function createFeild(x, y, mine) {
         // Clear feild
         feild.textContent = '';
     }
+
+    // Set feild size
+    feild.style.height = 1.5 * x + 'rem';
+    feild.style.width = 1.5 * y + 'rem';
+    const interface = document.getElementsByClassName('interface')[0];
+    interface.style.width = 1.5 * y + 'rem';
 
     let count = 1;
     let border = y_lenght;

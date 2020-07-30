@@ -48,6 +48,20 @@ main {
     align-items: center;
 }
 
+button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+.difficulty > button {
+    width: 3rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
 .wrapper {
     border: #838383 solid 0.2rem;
 }
