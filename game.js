@@ -102,25 +102,6 @@ function check(element) {
         startTimer();
     }
 
-    // Are ya winning son?
-    if (feild.getElementsByClassName('square').length == mine_amount) {
-        let mines_left = false;
-        for (let i = 0; i < element.getElementsByClassName('square').length; i++) {
-            if (!mines[parseInt(element.getElementsByClassName('square').id)]) mines_left = true;
-        }
-
-        if (!mines_left) {
-            // We have winner!
-            emoji.innerHTML = "😎";
-            game_over = true;
-
-            const score = document.getElementById("time").innerHTML;
-            const play_again = confirm("Score: "+ score +"/n Do you want to play again?");
-            if (play_again) reset();
-            return;
-        }
-    }
-
     element.classList.remove("square");
     element.classList.add("blank-square");
 
@@ -163,7 +144,6 @@ function check(element) {
         // They hit a number
         element.classList.add(getNumberClass(surrounding_mines));
         element.innerHTML = surrounding_mines;
-        return;
     }
     else {
         let should_be_checked = closeBy(element.id);
@@ -206,6 +186,25 @@ function check(element) {
             add_theses = [];
         }
     }
+
+    // Are ya winning son?
+    if (feild.getElementsByClassName('square').length == mine_amount) {
+        let mines_left = false;
+        for (let i = 0; i < element.getElementsByClassName('square').length; i++) {
+            if (!mines[parseInt(element.getElementsByClassName('square').id)]) mines_left = true;
+        }
+
+        if (!mines_left) {
+            // We have winner!
+            emoji.innerHTML = "😎";
+            game_over = true;
+            clearInterval(timer);
+
+            const score = document.getElementById("time").innerHTML;
+            const play_again = confirm("Score: "+ score.replace(/^0+/, '') + '<br>' +"Do you want to play again?");
+            if (play_again) reset();
+        }
+    }
 }
 
 /**
@@ -233,12 +232,12 @@ function rightClick(element) {
 }
 
 function areYouScared() {
-    if (emoji.innerHTML === "💀") return;
+    if (emoji.innerHTML === "💀" || emoji.innerHTML === "😎") return;
     emoji.innerHTML = "😨";
 }
 
 function fearless() {
-    if (emoji.innerHTML === "💀") return;
+    if (emoji.innerHTML === "💀" || emoji.innerHTML === "😎") return;
     emoji.innerHTML = getDefaultEmoji();
 }
 
@@ -249,6 +248,7 @@ function getDefaultEmoji() {
     const flags = document.getElementsByClassName('flag');
 
     if (emoji.innerHTML === "💀") return "💀";
+    if (emoji.innerHTML === "😎") return "😎";
     if (flags.length >= mine_amount) return "🤔";
     if (flags.length >= Math.ceil(mine_amount-2)) return "🤩";
     if (flags.length > Math.ceil((mine_amount/2)+(mine_amount/3))) return "🥳";
