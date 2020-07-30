@@ -9,7 +9,8 @@ let x_lenght      = 0;
 let y_lenght      = 0;
 let mine_amount   = 0;
 let timer         = '';
-let y_border = [];
+let y_border      = [];
+let game_over     = false
 
 // Create feild if empty
 if (!feild.hasChildNodes()) {
@@ -71,6 +72,7 @@ function createFeild(x, y, mine) {
  * @param {this} element 
  */
 function check(element) {
+    if (game_over) return;
     if (element.classList.contains('blank-square')) return;
     if (element.getElementsByClassName('flag').length > 0) return;
 
@@ -102,6 +104,12 @@ function check(element) {
         if (!mines_left) {
             // We have winner!
             emoji.innerHTML = "😎";
+            game_over = true;
+
+            const score = document.getElementById("time").innerHTML;
+            const play_again = confirm("Score: "+ score +"/n Do you want to play again?");
+            if (play_again) reset();
+            return;
         }
     }
 
@@ -109,10 +117,12 @@ function check(element) {
     element.classList.add("blank-square");
 
     // Did they hit a mine?
-    if (mines[parseInt(element.id)] === true) {
+    if (mines[parseInt(element.id)]) {
+        game_over = true;
         element.classList.add("mine");
         let bomb = document.createElement("span");
         bomb.classList.add("bomb");
+        bomb.style.backgroundColor = '#e61919';
         bomb.innerHTML = "💣";
         element.appendChild(bomb);
 
@@ -121,7 +131,20 @@ function check(element) {
 
         // Stop timer 
         clearInterval(timer);
-        
+
+        // Show all mines
+        for (let i = 1; i < square_amount; i++) {
+            const the_square = document.getElementById(i);
+            if (!the_square.classList.contains('blank-square') && mines[i]) {
+                the_square.classList.remove("square");
+                the_square.classList.add("blank-square");
+                let next_bomb = document.createElement("span");
+                next_bomb.classList.add("bomb");
+                next_bomb.innerHTML = "💣";
+                the_square.appendChild(next_bomb);
+            }
+        }
+
         return;
     }
 
@@ -181,7 +204,9 @@ function check(element) {
  * @param {this} element 
  */
 function rightClick(element) {
+    if (game_over) return;
     if (element.classList.contains('blank-square')) return;
+
     if (element.getElementsByClassName('flag').length > 0) {
         element.textContent = '';
         document.getElementById('left').innerHTML++;
