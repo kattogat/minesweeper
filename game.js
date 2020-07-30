@@ -103,7 +103,7 @@ function check(element) {
     }
 
     // Are ya winning son?
-    if (element.getElementsByClassName('square').length == mine_amount) {
+    if (feild.getElementsByClassName('square').length == mine_amount) {
         let mines_left = false;
         for (let i = 0; i < element.getElementsByClassName('square').length; i++) {
             if (!mines[parseInt(element.getElementsByClassName('square').id)]) mines_left = true;
