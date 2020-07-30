@@ -201,7 +201,7 @@ function check(element) {
             clearInterval(timer);
 
             const score = document.getElementById("time").innerHTML;
-            const play_again = confirm("Score: "+ score.replace(/^0+/, '') + '<br>' +"Do you want to play again?");
+            const play_again = confirm('Score: '+ score.replace(/^0+/, '') +'\nDo you want to play again?');
             if (play_again) reset();
         }
     }
