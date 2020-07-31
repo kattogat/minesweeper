@@ -78,6 +78,11 @@ button {
     align-items: center;
 }
 
+.interface > div {
+    width: 5rem;
+    text-align: center;
+}
+
 .emoji {
     cursor: pointer;
 }
