@@ -1,5 +1,3 @@
-// 16 x 30, 99 mine
-
 const feild       = document.getElementsByClassName('feild')[0];
 const emoji       = document.getElementsByClassName('emoji')[0];
 const square_size = 2; // rem
