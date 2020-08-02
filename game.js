@@ -29,6 +29,11 @@ function createFeild(x, y, mine) {
     mine_amount  = mine;
     const amount = x * y;
 
+    if (feild.hasChildNodes()) {
+        // Clear feild
+        feild.textContent = '';
+    }
+
     if (game_over) {
         reset();
     }
@@ -366,12 +371,11 @@ function resetTimer() {
  * Reset the game
  */
 function reset() {
-    feild.textContent = '';
-    mines             = [];
-    game_over         = false;
-    mines             = [];
-    emoji.innerHTML   = "🙂";
-    y_border          = [];
+    mines           = [];
+    game_over       = false;
+    mines           = [];
+    emoji.innerHTML = "🙂";
+    y_border        = [];
     resetTimer();
 }
 
