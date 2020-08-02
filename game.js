@@ -29,10 +29,8 @@ function createFeild(x, y, mine) {
     mine_amount  = mine;
     const amount = x * y;
 
-    if (feild.hasChildNodes()) {
-        // Clear feild
-        feild.textContent = '';
-        mines = [];
+    if (game_over) {
+        reset();
     }
 
     // Set feild size
@@ -202,7 +200,9 @@ function check(element) {
 
             const score = document.getElementById("time").innerHTML;
             const play_again = confirm('Score: '+ score.replace(/^0+/, '') +'\nDo you want to play again?');
-            if (play_again) reset();
+            if (play_again) {
+                reStart();
+            }
         }
     }
 }
@@ -363,13 +363,22 @@ function resetTimer() {
 }
 
 /**
- * Reset and start a new game
+ * Reset the game
  */
 function reset() {
-    game_over = false;
-    mines = [];
-    emoji.innerHTML = "🙂";
-    y_border = [];
+    feild.textContent = '';
+    mines             = [];
+    game_over         = false;
+    mines             = [];
+    emoji.innerHTML   = "🙂";
+    y_border          = [];
     resetTimer();
+}
+
+/**
+ * Reset and restart the game
+ */
+function reStart() {
+    reset();
     createFeild(x_lenght, y_lenght, mine_amount);
 }
