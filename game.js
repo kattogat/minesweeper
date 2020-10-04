@@ -299,30 +299,25 @@ function closeBy(original_id) {
     original_id = parseInt(original_id);
     let surrounding = [];
 
-    if (document.getElementById(original_id + 1) !== null && !isOverBorder(original_id, original_id + 1)) { 
-        surrounding.push(parseInt(document.getElementById(original_id + 1).id)); // forward
-    }
-    if (document.getElementById((original_id + y_lenght) + 1) !== null && !isOverBorder(original_id, (original_id + y_lenght) + 1)) {
-        surrounding.push(parseInt(document.getElementById((original_id + y_lenght) + 1).id)); // top forward
-    }
-    if (document.getElementById((original_id - y_lenght) + 1) !== null && !isOverBorder(original_id, (original_id - y_lenght) + 1)) {
-        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) + 1).id)); // bottom forward
-    }
-    if (document.getElementById(original_id - 1) !== null && !isOverBorder(original_id, original_id - 1)) { 
-        surrounding.push(parseInt(document.getElementById(original_id - 1).id)); // backward
-    }
-    if (document.getElementById((original_id + y_lenght) - 1) !== null && !isOverBorder(original_id, (original_id + y_lenght) - 1)) {
-        surrounding.push(parseInt(document.getElementById((original_id + y_lenght) - 1).id)); // top backward
-    }
-    if (document.getElementById((original_id - y_lenght) - 1) !== null && !isOverBorder(original_id, (original_id - y_lenght) - 1)) {
-        surrounding.push(parseInt(document.getElementById((original_id - y_lenght) - 1).id)); // bottom backward
-    }
+    const check = [
+        original_id + 1,              // forward
+        (original_id + y_lenght) + 1, // top forward
+        (original_id - y_lenght) + 1, // bottom forward
+        original_id - 1,              // backward
+        (original_id + y_lenght) - 1, // top backward
+        (original_id - y_lenght) - 1, // bottom backward
+        original_id + y_lenght,       // top
+        original_id - y_lenght        // bottom
+    ];
 
-    if (document.getElementById(original_id + y_lenght) !== null) {
-        surrounding.push(parseInt(document.getElementById(original_id + y_lenght).id)); // top
-    }
-    if (document.getElementById(original_id - y_lenght) !== null) {
-        surrounding.push(parseInt(document.getElementById(original_id - y_lenght).id)); // bottom
+    for (let i = 0; i < check.length; i++) {
+        if (check[i] < 1) continue;
+        let el_to_check = document.getElementById(check[i]);
+
+        if (el_to_check !== null && el_to_check.getElementsByClassName('flag').length < 1) {
+            if ((i <= 5) && isOverBorder(original_id, check[i])) continue;
+            surrounding.push(parseInt(check[i]));
+        }
     }
 
     return surrounding;
