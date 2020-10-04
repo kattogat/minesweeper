@@ -30,9 +30,6 @@ function createFeild(x, y, mine) {
     if (feild.hasChildNodes()) {
         // Clear feild
         feild.textContent = '';
-    }
-
-    if (game_over) {
         reset();
     }
 
@@ -369,6 +366,7 @@ function reset() {
     mines           = [];
     emoji.innerHTML = "🙂";
     y_border        = [];
+    document.getElementById('left').innerHTML = mine_amount
     resetTimer();
 }
 
