@@ -189,6 +189,7 @@ function check(element) {
     if (feild.getElementsByClassName('square').length == mine_amount) {
         let mines_left = false;
         for (let i = 0; i < element.getElementsByClassName('square').length; i++) {
+            if (element.getElementsByClassName('flag').length < 1) mines_left = true;
             if (!mines[parseInt(element.getElementsByClassName('square').id)]) mines_left = true;
         }
 
