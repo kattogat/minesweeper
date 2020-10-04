@@ -314,7 +314,7 @@ function closeBy(original_id) {
         if (check[i] < 1) continue;
         let el_to_check = document.getElementById(check[i]);
 
-        if (el_to_check !== null && el_to_check.getElementsByClassName('flag').length < 1) {
+        if (el_to_check !== null) {
             if ((i <= 5) && isOverBorder(original_id, check[i])) continue;
             surrounding.push(parseInt(check[i]));
         }
