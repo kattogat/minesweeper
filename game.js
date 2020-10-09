@@ -196,11 +196,17 @@ function check(element) {
         if (!mines_left) {
             // We have winner!
             emoji.innerHTML = "😎";
-            game_over = true;
+            game_over       = true;
+            const raw_score = document.getElementById("time").innerHTML;
+            const score     = raw_score.replace(/^0+/, '');
+            let high_score  = localStorage.getItem('high_score');
+            if (high_score == null || score > high_score) {
+                localStorage.setItem('high_score', score);
+                high_score = score;
+            }
             clearInterval(timer);
 
-            const score = document.getElementById("time").innerHTML;
-            const play_again = confirm('Score: '+ score.replace(/^0+/, '') +'\nDo you want to play again?');
+            const play_again = confirm('Score: '+ score + '\nHigh score: ' + high_score + '\nDo you want to play again?');
             if (play_again) {
                 reStart();
             }
