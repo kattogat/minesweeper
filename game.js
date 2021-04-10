@@ -84,7 +84,8 @@ function check(element) {
 
     if (feild.querySelectorAll(".blank-square").length < 1) {
         // First click, place mines
-        for (let i = 0; i < mine_amount; i++) {
+        let placed_mines = mines.filter(Boolean).length;
+        while (placed_mines < mine_amount) {
             let placment = Math.floor(Math.random() * (square_amount - 1 + 1)) + 1;
             // First square can't be a mine
             while (placment == element.id) {
@@ -93,6 +94,7 @@ function check(element) {
 
             if (!mines[placment]) {
                 mines[placment] = true;
+                placed_mines = mines.filter(Boolean).length;
             }
         }
 
@@ -184,6 +186,14 @@ function check(element) {
             add_theses = [];
         }
     }
+    
+    const count = mines.filter(Boolean).length;
+    console.log(feild.getElementsByClassName('square').length);
+    console.log(mine_amount);
+    console.log(count);
+    console.log(mines);
+    console.log('next!');
+
 
     // Are ya winning son?
     if (feild.getElementsByClassName('square').length == mine_amount) {
