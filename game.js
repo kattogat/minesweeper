@@ -186,14 +186,6 @@ function check(element) {
             add_theses = [];
         }
     }
-    
-    const count = mines.filter(Boolean).length;
-    console.log(feild.getElementsByClassName('square').length);
-    console.log(mine_amount);
-    console.log(count);
-    console.log(mines);
-    console.log('next!');
-
 
     // Are ya winning son?
     if (feild.getElementsByClassName('square').length == mine_amount) {
